@@ -1,4 +1,4 @@
-== Colibri - MongoDB/Express Scaffolding
+# Colibri - MongoDB/Express Scaffolding
 
 Transforms Mongoose scheme to Express REST resource
 
