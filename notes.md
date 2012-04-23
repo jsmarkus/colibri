@@ -2,10 +2,11 @@
 
 Transforms Mongoose scheme to Express REST resource
 
-	Mango = require 'express-mango'
+```CoffeeScript
+	Colibri = require 'colibri'
 
-	resource = Mango.createResource
-		#only mandatory option
+	resource = Colibri.createResource
+		#the only mandatory option
 		schema : MySchema
 
 		#redefining fields. default is all/write
@@ -46,4 +47,4 @@ Transforms Mongoose scheme to Express REST resource
 			#do something with res.collection		
 
 	app.use resource
-
+```
