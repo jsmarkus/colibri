@@ -1,0 +1,10 @@
+{
+	"name" : "colibri"
+	, "version" : "0.0.1"
+	, "dependencies" : {
+		"mongoose" : ">=2.6.0"
+	}
+	, "devDependencies": {
+		"express" : "2.5.9"
+	}
+}
