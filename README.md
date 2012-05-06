@@ -4,6 +4,8 @@ Use `colibri` if you need to create RESTful backend to you mongodb collections i
 
 ![](https://github.com/jsmarkus/colibri/raw/master/kdpv.jpg)
 
+Let's write a backend for well-known ToDo application (see `example/todo`)
+
 ```coffeescript
 express = require 'express'
 mongoose = require 'mongoose'
@@ -33,3 +35,13 @@ colibri.createResource app,
 app.listen 3000
 
 ```
+
+`colibri` adds the following routes automatically to your Express app:
+
+ * `GET /todo` - get a list of items
+ * `POST /todo` - create new item
+ * `GET /todo/:id` - get an item with corresponding _id 
+ * `PUT /todo/:id` - save an item with corresponding _id
+ * `DELETE /todo/:id` - delete an item with corresponding _id
+
+We have a todo-server ready to use with - for example - Backbone.
