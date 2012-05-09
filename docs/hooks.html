@@ -1,0 +1,113 @@
+<h1>Colibri hooks</h1>
+<p>Each colibri method is implemented as a stack of Express's route
+middleware functions (<em>steps</em> in colibri terminology).</p>
+<p>Each step performs its small operation. It may be <em>hooked</em> by user.
+Each hook runs <em>after</em> the corresponding step and as well as a step a
+hook is also an Express route middleware. So its arguments are
+<code>request</code>, <code>response</code> and <code>next</code>.</p>
+<h2>options.hooks.get</h2>
+<h3>begin</h3>
+<p>Does nothing. Runs in the beginning of the method and is only to be
+hooked.</p>
+<p>Hooks used to:</p>
+<ul>
+<li>control user's access to the method</li>
+</ul>
+<h3>input</h3>
+<p>Client request is parsed.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req._id</code> - _id of the document. Used to select the document.</li>
+</ul>
+<p>Hooks used to:</p>
+<ul>
+<li>control user's access to the document basing on document's fields</li>
+<li>change _id of the document to be selected</li>
+</ul>
+<h3>load</h3>
+<p>The document with <code>_id = req._id</code> is loaded.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req.doc</code> - the document</li>
+</ul>
+<p>Hooks used to:</p>
+<ul>
+<li>control user's access to the document basing on document's fields</li>
+<li>control user's access to specific fields</li>
+</ul>
+<h2>options.hooks.put</h2>
+<h3>begin</h3>
+<p>Does nothing. Runs in the beginning of the method and is only to be
+hooked.</p>
+<p>Hooks used to:</p>
+<ul>
+<li>control user's access to the method</li>
+</ul>
+<h3>input</h3>
+<p>Client's request is parsed.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req._id</code> - _id of the document. Used to select the document before it is updated.</li>
+<li><code>req.fieldValues</code> - fields from <code>req.body</code>. Used to update the document. You may change its values for example to provide default values, validation, or to update any dependent data.</li>
+</ul>
+<h3>load</h3>
+<p>The document with <code>_id = req._id</code> is loaded.</p>
+<p>Here you may put any logic based on <code>req.doc</code> and <code>rec.fieldValues</code>
+properties.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req.doc</code> - a document loaded from collection butt not yet  updated.</li>
+</ul>
+<h3>update</h3>
+<p>The fields of the document <code>req.doc</code> are populated with
+<code>req.fieldValues</code>. The field specified in <code>options.mtimeField</code> is
+populated with the current datetime. The document is not yet saved.</p>
+<h3>save</h3>
+<p>The document is saved.</p>
+<p>Here you may provide any after-save actions.</p>
+<h2>options.hooks.del</h2>
+<h3>load</h3>
+<p>The document with <code>_id = req._id</code> is loaded.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req.doc</code> - the document</li>
+</ul>
+<h3>remove</h3>
+<p>The document is removed from the collection.</p>
+<h2>options.hooks.post</h2>
+<h3>input</h3>
+<p>Client's request is parsed.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req._id</code> - _id of the document. Used to select the document before it is updated.</li>
+<li><code>req.fieldValues</code> - fields from <code>req.body</code>. Used to create the document. You may change its values for example to provide default values, validation, or to update any dependent data.</li>
+</ul>
+<h3>create</h3>
+<p>The document is created, but not yet saved.</p>
+<p>Here you may change the fields of the document.</p>
+<p>Adds:</p>
+<ul>
+<li><code>req.doc</code> - new document</li>
+</ul>
+<h3>save</h3>
+<p>The document is saved.</p>
+<p>Here you may provide any after-save actions. </p>
+<h2>options.hooks.list</h2>
+<h3>input</h3>
+<p>Does nothing in current version. In next versions may deal with
+sorting/filtering/pagination options.</p>
+<h3>query</h3>
+<p>Adds:</p>
+<ul>
+<li><code>req.query</code> - Mongoose
+<a href="http://mongoosejs.com/docs/query.html">query</a> object that is used to select a list of documents.</li>
+</ul>
+<p>Here you may add any conditions to it to provide custom filtering,
+sorting, limitation, access control etc.</p>
+<h3>load</h3>
+<p>Loads the list of the documents using <code>req.query</code>.</p>
+<p>Here you may change the loaded documents</p>
+<p>Adds:</p>
+<ul>
+<li><code>req.docs</code> - the list of the selected documents</li>
+</ul>

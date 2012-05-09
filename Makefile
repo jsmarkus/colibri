@@ -9,6 +9,13 @@ DST_EXAMPLE = $(NPM_DIR)/example
 SRC_PACKAGE = package.json
 DST_PACKAGE = $(NPM_DIR)/package.json
 
+#----
+
+DOCS = $(shell find docs -type f -name "*.md")
+HTMLDOCS = $(DOCS:.md=.html)
+
+#----
+
 package: $(DST_JS) $(DST_PACKAGE) $(DST_EXAMPLE)
 
 clean:
@@ -22,3 +29,19 @@ $(DST_PACKAGE): $(SRC_PACKAGE)
 
 $(NPM_DIR)/%.js : %.coffee
 	mkdir -p $(@D) && coffee -o $(@D) -c $<
+
+#----
+
+docs: $(HTMLDOCS)
+
+docs/%.html: docs/%.md
+	@echo "... $< -> $@"
+	@markdown $< \
+		> $@
+	# @markdown $< \
+	# 	| cat docs/layout/head.html - docs/layout/foot.html \
+	# 	> $@
+
+#----
+
+.PHONY: package docs

@@ -16,7 +16,16 @@ module.exports = class Post extends Method
 		next null
 
 	create   : (req, res, next)->
-		req.doc = new req.model req.fieldValues		
+		req.doc = new req.model
+		for own field, value of req.fieldValues
+			req.doc[field] = value
+
+		if req.ctimeField
+			req.doc[req.ctimeField] = req.currentTime
+
+		if req.mtimeField
+			req.doc[req.mtimeField] = req.currentTime
+
 		next null
 
 	save : (req, res, next)->

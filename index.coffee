@@ -2,19 +2,18 @@ mongoose = require 'mongoose'
 
 Method = require './lib/Method'
 
-itemMethods =
+M =
 	get  : require './lib/crud/Get'
 	put  : require './lib/crud/Put'
 	del  : require './lib/crud/Del'
-
-listMethods =
 	list : require './lib/crud/List'
 	post : require './lib/crud/Post'
 
-_createResource = (app, model, desc, hooks, path)->
+_createResource = (app, model, desc, hooks, path, options)->
 
 	defineModel = (req, res, next)->
 		req.model = model
+		req.currentTime = new Date
 		next null
 
 	listPath = path
@@ -28,15 +27,27 @@ _createResource = (app, model, desc, hooks, path)->
 	# Routes
 	# Performs CRUD operations
 
-	for own name, klass of itemMethods
-		methodInstance = new klass itemPath
-		if hooks[name]? then methodInstance.hook hooks[name]
-		methodInstance.addToExpress app
+	putOptions =
+		upsert : options.upsert
+		mtimeField : options.mtimeField
+		ctimeField : options.ctimeField
+	
+	postOptions =
+		mtimeField : options.mtimeField
+		ctimeField : options.ctimeField
 
-	for own name, klass of listMethods
-		methodInstance = new klass listPath
-		if hooks[name]? then methodInstance.hook hooks[name]
-		methodInstance.addToExpress app
+
+	methods =
+		get : new M.get itemPath
+		put : new M.put(itemPath, null, null, putOptions)
+		del : new M.del itemPath
+		
+		post : new M.post(listPath, null, null, postOptions)
+		list : new M.list listPath
+
+	for own name, method of methods
+		if hooks[name]? then method.hook hooks[name]
+		method.addToExpress app
 
 schemaToDescription = (schema)->
 	desc = []
@@ -57,7 +68,12 @@ createResource = (app, options)->
 
 	hooks = options.hooks or {}
 
-	_createResource app, model, desc, hooks, path
+	otherOptions =
+		upsert : options.upsert
+		mtimeField : options.mtimeField
+		ctimeField : options.ctimeField
+
+	_createResource app, model, desc, hooks, path, otherOptions
 
 
 #--------------------------------------------------

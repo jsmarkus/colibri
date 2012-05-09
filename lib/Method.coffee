@@ -1,5 +1,5 @@
 module.exports = class Method
-	constructor : (path=null, method=null, steps=null)->
+	constructor : (path=null, method=null, steps=null, @options={})->
 		@method = if method? then method else @defaultMethod()
 
 		unless @method in ['all', 'get', 'post', 'put', 'del']
