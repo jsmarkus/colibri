@@ -11,21 +11,27 @@ module.exports = class Get extends Method
 	]
 
 	input   : (req, res, next)->
-		req._id = req.param '_id'
+		rest =req.rest
+		
+		rest._id = req.param '_id'
 		next null
 
 	load : (req, res, next)->
-		_id = req._id
+		rest = req.rest
+		
+		_id = rest._id
 
-		req.model.findById _id, (err, doc)->
+		rest.model.findById _id, (err, doc)->
 			if err
 				next err
 			else
-				req.doc = doc
+				rest.document = doc
 				next null
 
 	output  : (req, res, next)->
-		unless req.doc
+		rest = req.rest
+
+		unless rest.document
 			res.send 404
 		else
-			res.json req.doc.toObject()
+			res.json rest.document.toObject()

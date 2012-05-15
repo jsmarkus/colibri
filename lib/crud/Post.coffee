@@ -12,31 +12,41 @@ module.exports = class Post extends Method
 	]
 
 	input   : (req, res, next)->
-		req.fieldValues = req.body
+		rest = req.rest
+		
+		rest.fieldValues = req.body
 		next null
 
 	create   : (req, res, next)->
-		req.doc = new req.model
-		for own field, value of req.fieldValues
-			req.doc[field] = value
+		rest = req.rest
+		
+		self = rest.method
 
-		if req.ctimeField
-			req.doc[req.ctimeField] = req.currentTime
+		options = self.options
+		
+		rest.document = new rest.model
+		
+		for own field, value of rest.fieldValues
+			rest.document[field] = value
 
-		if req.mtimeField
-			req.doc[req.mtimeField] = req.currentTime
+		if options.ctimeField
+			rest.document[options.ctimeField] = rest.currentTime
+
+		if options.mtimeField
+			rest.document[options.mtimeField] = rest.currentTime
 
 		next null
 
 	save : (req, res, next)->
-		req.doc.save (err)->
+		rest = req.rest
+
+		rest.document.save (err)->
 			if err
 				next err
 			else
 				next null
 
 	output  : (req, res, next)->
-		unless req.doc
-			res.send 404
-		else
-			res.json req.doc
+		rest = req.rest
+
+		res.json rest.document

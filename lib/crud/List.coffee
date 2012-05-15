@@ -11,23 +11,27 @@ module.exports = class List extends Method
 		'output'
 	]
 
-	input   : (req, res, next)->
+	input : (req, res, next)->
 		next null
 
-	query   : (req, res, next)->
-		req.query = req.model.find()
+	query : (req, res, next)->
+		rest = req.rest
+		rest.query = rest.model.find()
 		next null
 
 	load : (req, res, next)->
-		req.query.exec (err, docs)->
+		rest = req.rest
+		rest.query.exec (err, docs)->
 			if err
 				next err
 			else
-				req.docs = docs
+				rest.documents = docs
 				next null
 
 	output  : (req, res, next)->
-		unless req.docs
+		rest = req.rest
+		
+		unless rest.documents
 			res.send 404
 		else
-			res.json (doc.toObject() for doc in req.docs)
+			res.json (doc.toObject() for doc in rest.documents)
