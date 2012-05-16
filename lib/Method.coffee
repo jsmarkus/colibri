@@ -28,7 +28,6 @@ module.exports = class Method
 
 	hook : (hooks)->
 		for own step, callbackFuntion of hooks
-			console.log 'HOOKING', step
 			@add step, callbackFuntion
 
 	add : (step, callbackFunction)->

@@ -3,16 +3,22 @@ NPM_DIR := npm
 SRC_COFFEE := index.coffee $(shell find lib -name "*.coffee")
 DST_JS := $(patsubst %.coffee,$(NPM_DIR)/%.js,$(SRC_COFFEE))
 
-SRC_EXAMPLE = example
-DST_EXAMPLE = $(NPM_DIR)/example
+SRC_EXAMPLE := example
+DST_EXAMPLE := $(NPM_DIR)/example
 
-SRC_PACKAGE = package.json
-DST_PACKAGE = $(NPM_DIR)/package.json
+SRC_PACKAGE := package.json
+DST_PACKAGE := $(NPM_DIR)/package.json
 
 #----
 
-DOCS = $(shell find docs -type f -name "*.md")
-HTMLDOCS = $(DOCS:.md=.html)
+DOCS := $(shell find docs -type f -name "*.md")
+HTMLDOCS := $(DOCS:.md=.html)
+
+#----
+
+TESTS := $(wildcard test/*.test.coffee)
+MOCHA := node_modules/mocha/bin/mocha
+COFFEE := node_modules/mocha/bin/mocha
 
 #----
 
@@ -22,7 +28,7 @@ clean:
 	rm -rfv $(NPM_DIR)
 
 $(DST_EXAMPLE): $(SRC_EXAMPLE)
-	cp -r $< $@ 
+	cp -r $< $@
 
 $(DST_PACKAGE): $(SRC_PACKAGE)
 	cp $< $@
@@ -44,4 +50,8 @@ docs/%.html: docs/%.md
 
 #----
 
-.PHONY: package docs
+test:
+	$(MOCHA) --compilers coffee:coffee-script --require should $(TESTS)
+
+
+.PHONY: package docs test

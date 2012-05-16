@@ -6,6 +6,9 @@
 	}
 	, "devDependencies": {
 		"express" : "2.5.9",
-		"frisby" : "0.4.6"
+		"mocha" : "*",
+		"should" : "*",
+		"superagent" : "*",
+		"coffee-script" : "*"
 	}
 }

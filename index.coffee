@@ -74,8 +74,6 @@ createResource = (app, options)->
 	desc = schemaToDescription model.schema
 	path = options.path or modelNameToResourcePath model.modelName
 
-	console.log 'path:', path
-
 	hooks = options.hooks or {}
 
 	otherOptions =
