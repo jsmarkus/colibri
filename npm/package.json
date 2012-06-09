@@ -1,6 +1,6 @@
 {
 	"name" : "colibri"
-	, "version" : "0.0.2"
+	, "version" : "0.0.3"
 	, "dependencies" : {
 		"mongoose" : ">=2.6.0"
 	}
