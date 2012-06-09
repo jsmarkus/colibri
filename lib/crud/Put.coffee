@@ -31,6 +31,7 @@ module.exports = class Put extends Method
 				unless doc
 					if self.options.upsert
 						doc = new rest.model
+						doc._id = _id #we have to populate _id from HTTP query, because to upsert in PUT means to create a document with known _id
 						if self.options.ctimeField
 							doc[self.options.ctimeField] = rest.currentTime
 					else
