@@ -1,52 +1,56 @@
 Method = require '../Method'
 
 module.exports = class Post extends Method
-	defaultMethod: ->'post'
-	
-	defaultSteps: ->[
-		'begin'
-		'input'
-		'create'
-		'save'
-		'output'
-	]
+  defaultMethod: ->'post'
 
-	input   : (req, res, next)->
-		rest = req.rest
-		
-		rest.fieldValues = req.body
-		next null
+  defaultSteps: ->[
+    'begin'
+    'input'
+    'create'
+    'save'
+    'output'
+  ]
 
-	create   : (req, res, next)->
-		rest = req.rest
-		
-		self = rest.method
+  input   : (req, res, next)->
+    rest = req.rest
 
-		options = self.options
-		
-		rest.document = new rest.model
-		
-		for own field, value of rest.fieldValues
-			rest.document[field] = value
+    #% post.input ADDS fieldValues parsed from request body
+    rest.fieldValues = req.body
+    next null
 
-		if options.ctimeField
-			rest.document[options.ctimeField] = rest.currentTime
+  create   : (req, res, next)->
+    rest = req.rest
 
-		if options.mtimeField
-			rest.document[options.mtimeField] = rest.currentTime
+    self = rest.method
 
-		next null
+    options = self.options
 
-	save : (req, res, next)->
-		rest = req.rest
+    #% post.create ADDS document with fields populated from fieldValues
+    rest.document = new rest.model
 
-		rest.document.save (err)->
-			if err
-				next err
-			else
-				next null
+    for own field, value of rest.fieldValues
+      rest.document[field] = value
 
-	output  : (req, res, next)->
-		rest = req.rest
+    if options.ctimeField
+      rest.document[options.ctimeField] = rest.currentTime
 
-		res.json rest.document
+    if options.mtimeField
+      rest.document[options.mtimeField] = rest.currentTime
+
+    next null
+
+  save : (req, res, next)->
+    rest = req.rest
+
+    #% post.save USES document to call save() against
+    rest.document.save (err)->
+      if err
+        next err
+      else
+        next null
+
+  output  : (req, res, next)->
+    rest = req.rest
+
+    #% post.output USES document to be outputed
+    res.json rest.document
