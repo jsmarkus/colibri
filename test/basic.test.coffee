@@ -16,8 +16,10 @@ ItemSchema = new mongoose.Schema
 
 ItemModel = mongoose.model 'item', ItemSchema
 
-colibri.createResource app,
+resource = colibri.createResource
 	model : ItemModel
+
+resource.express app
 
 app.listen 3000
 

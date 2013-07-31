@@ -1,7 +1,7 @@
 Method = require '../Method'
 
 module.exports = class Del extends Method
-  defaultMethod: ->'del'
+  defaultVerb: ->'del'
 
   defaultSteps: ->[
     'begin'

@@ -1,7 +1,7 @@
 Method = require '../Method'
 
 module.exports = class Post extends Method
-  defaultMethod: ->'post'
+  defaultVerb: ->'post'
 
   defaultSteps: ->[
     'begin'
@@ -18,12 +18,10 @@ module.exports = class Post extends Method
     rest.fieldValues = req.body
     next null
 
-  create   : (req, res, next)->
+  create   : (req, res, next)=>
     rest = req.rest
 
-    self = rest.method
-
-    options = self.options
+    options = @options
 
     #% post.create ADDS document with fields populated from fieldValues
     rest.document = new rest.model

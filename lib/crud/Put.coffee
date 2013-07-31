@@ -1,8 +1,8 @@
 Method = require '../Method'
 
 module.exports = class Put extends Method
-  defaultMethod: ->'put'
-  
+  defaultVerb: ->'put'
+
   defaultSteps: -> [
     'begin'
     'input'
@@ -18,22 +18,21 @@ module.exports = class Put extends Method
     rest.fieldValues = req.body
     next null
 
-  load : (req, res, next)->
+  load : (req, res, next)=>
     rest = req.rest
     _id  = rest._id
-    self = rest.method
 
-    rest.model.findById _id, (err, doc)->
+    rest.model.findById _id, (err, doc)=>
       if err
         next err
       else
         #not found: create if 'upsert' option is on, 404 otherwise
         unless doc
-          if self.options.upsert
+          if @options.upsert
             doc = new rest.model
             doc._id = _id #we have to populate _id from HTTP query, because to upsert in PUT means to create a document with known _id
-            if self.options.ctimeField
-              doc[self.options.ctimeField] = rest.currentTime
+            if @options.ctimeField
+              doc[@options.ctimeField] = rest.currentTime
           else
             res.send 404
             return
@@ -41,15 +40,15 @@ module.exports = class Put extends Method
         rest.document = doc
         next null
 
-  update : (req, res, next)->
+  update : (req, res, next)=>
     rest = req.rest
     self = rest.method
 
     for own field, value of rest.fieldValues
       rest.document[field] = value
 
-    if self.options.mtimeField
-      rest.document[self.options.mtimeField] = rest.currentTime
+    if @options.mtimeField
+      rest.document[@options.mtimeField] = rest.currentTime
 
     next null
 

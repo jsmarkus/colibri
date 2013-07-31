@@ -1,7 +1,7 @@
 Method = require '../Method'
 
 module.exports = class List extends Method
-  defaultMethod: ->'get'
+  defaultVerb: ->'get'
 
   defaultSteps: ->[
     'begin'
