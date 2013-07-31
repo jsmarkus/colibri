@@ -1,42 +1,28 @@
-express = require 'express'
-mongoose = require 'mongoose'
 colibri = require '../'
 request = require 'superagent'
 
-app = express.createServer()
+utils = require './_utils'
 
-app.use express.bodyParser()
-
-mongoose.connect 'mongodb://localhost/colibriTest'
-
-ItemSchema = new mongoose.Schema
-	title : String
-	body  : String
-	order : Number
-
-ItemModel = mongoose.model 'item', ItemSchema
 
 resource = colibri.createResource
-	model : ItemModel
+	model : utils.ItemModel
 
-resource.express app
+resource.express utils.app
 
-app.listen 3000
-
-URL = 'http://127.0.0.1:3000'
-
-
-before (done)->
-	ItemModel.remove {}, ()->
-		done()
 
 itemId = null
 
+
+
 describe 'Basic REST API', ->
+
+	before (done)->
+		utils.ItemModel.remove {}, ()->
+			done()
 
 	it 'should create item', (done)->
 		request
-			.post("#{URL}/item")
+			.post("#{utils.URL}/item")
 			.send(title: 'foo', body:'bar')
 			.end (res)->
 				itemId = res.body._id
@@ -48,7 +34,7 @@ describe 'Basic REST API', ->
 
 	it 'should update item', (done)->
 		request
-			.put("#{URL}/item/#{itemId}")
+			.put("#{utils.URL}/item/#{itemId}")
 			.send(title: 'aaa')
 			.end (res)->
 				res.status.should.equal 200
@@ -59,7 +45,7 @@ describe 'Basic REST API', ->
 
 	it 'should get item', (done)->
 		request
-			.get("#{URL}/item/#{itemId}")
+			.get("#{utils.URL}/item/#{itemId}")
 			.end (res)->
 				res.status.should.equal 200
 				res.body.should.have.property 'title', 'aaa'
@@ -68,7 +54,7 @@ describe 'Basic REST API', ->
 
 	it 'should get a list of items', (done)->
 		request
-			.get("#{URL}/item")
+			.get("#{utils.URL}/item")
 			.end (res)->
 				res.status.should.equal 200
 				res.body.should.be.an.instanceof Array
@@ -79,11 +65,11 @@ describe 'Basic REST API', ->
 
 	it 'should delete item', (done)->
 		request
-			.del("#{URL}/item/#{itemId}")
+			.del("#{utils.URL}/item/#{itemId}")
 			.end (res)->
 				res.status.should.equal 204
 				request
-					.get("#{URL}/item/#{itemId}")
+					.get("#{utils.URL}/item/#{itemId}")
 					.end (res)->
 						res.status.should.equal 404
 						done()

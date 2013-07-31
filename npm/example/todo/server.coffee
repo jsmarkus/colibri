@@ -17,7 +17,9 @@ TodoSchema = new mongoose.Schema
 
 TodoModel = mongoose.model 'todo', TodoSchema
 
-colibri.createResource app,
+resource = colibri.createResource
 	model : TodoModel
+
+resource.express app
 
 app.listen 3000

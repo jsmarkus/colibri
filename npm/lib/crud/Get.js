@@ -14,7 +14,7 @@
       return Get.__super__.constructor.apply(this, arguments);
     }
 
-    Get.prototype.defaultMethod = function() {
+    Get.prototype.defaultVerb = function() {
       return 'get';
     };
 

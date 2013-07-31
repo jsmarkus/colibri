@@ -14,7 +14,7 @@
       return List.__super__.constructor.apply(this, arguments);
     }
 
-    List.prototype.defaultMethod = function() {
+    List.prototype.defaultVerb = function() {
       return 'get';
     };
 

@@ -1,6 +1,7 @@
 NPM_DIR := npm
 
-SRC_COFFEE := index.coffee $(shell find lib -name "*.coffee")
+SRC_PLUGIN := $(shell find plugin -name "*.coffee")
+SRC_COFFEE := index.coffee $(shell find lib -name "*.coffee") $(SRC_PLUGIN)
 DST_JS := $(patsubst %.coffee,$(NPM_DIR)/%.js,$(SRC_COFFEE))
 
 SRC_EXAMPLE := example

@@ -1,14 +1,13 @@
 {
-	"name" : "colibri"
-	, "version" : "0.0.3"
-	, "dependencies" : {
-		"mongoose" : ">=2.6.0"
-	}
-	, "devDependencies": {
-		"express" : "2.5.9",
-		"mocha" : "*",
-		"should" : "*",
-		"superagent" : "*",
-		"coffee-script" : "*"
-	}
+  "name": "colibri",
+  "version": "0.0.3",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "2.5.9",
+    "mocha": "*",
+    "should": "*",
+    "superagent": "*",
+    "coffee-script": "*",
+    "mongoose": "~3.6.15"
+  }
 }

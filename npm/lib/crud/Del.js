@@ -14,7 +14,7 @@
       return Del.__super__.constructor.apply(this, arguments);
     }
 
-    Del.prototype.defaultMethod = function() {
+    Del.prototype.defaultVerb = function() {
       return 'del';
     };
 
