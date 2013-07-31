@@ -19,6 +19,7 @@ TodoModel = mongoose.model 'todo', TodoSchema
 
 resource = colibri.createResource
 	model : TodoModel
+	plainOutput : yes
 
 resource.express app
 
