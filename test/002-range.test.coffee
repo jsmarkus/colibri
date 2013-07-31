@@ -4,12 +4,14 @@ request = require 'superagent'
 utils = require './_utils'
 
 range = require '../plugin/range'
+count = require '../plugin/count'
 
 resource = colibri.createResource
 	path        : '/range-item'
 	model       : utils.ItemModel
 
 resource.use range()
+resource.use count()
 
 resource.express utils.app
 
@@ -41,6 +43,7 @@ describe 'Basic REST API', ->
 				res.body.result.should.be.an.instanceof Array
 				res.body.result.should.have.lengthOf 10
 				res.body.result[0].should.have.property 'title', 'one'
+				res.body.totalCount.should.equal 10
 				done()
 
 	it 'should get a list of items', (done)->
@@ -50,4 +53,5 @@ describe 'Basic REST API', ->
 				res.body.result.should.have.lengthOf 4
 				res.body.result[0].title.should.equal 'three'
 				res.body.result[3].title.should.equal 'six'
+				res.body.totalCount.should.equal 10
 				done()

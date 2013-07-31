@@ -58,7 +58,7 @@ module.exports = class Method
     if @plainOutput
       response = req.rest.result
     else
-      response = Object.create req.rest.meta
+      response = req.rest.meta
       response.result = req.rest.result
     res.json response, @successCode()
 
