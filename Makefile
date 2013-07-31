@@ -12,11 +12,6 @@ DST_PACKAGE := $(NPM_DIR)/package.json
 
 #----
 
-DOCS := $(shell find docs -type f -name "*.md")
-HTMLDOCS := $(DOCS:.md=.html)
-
-#----
-
 TESTS := $(wildcard test/*.test.coffee)
 MOCHA := node_modules/mocha/bin/mocha
 COFFEE := node_modules/mocha/bin/mocha
@@ -36,20 +31,6 @@ $(DST_PACKAGE): $(SRC_PACKAGE)
 
 $(NPM_DIR)/%.js : %.coffee
 	mkdir -p $(@D) && coffee -o $(@D) -c $<
-
-#----
-
-docs: $(HTMLDOCS)
-
-docs/%.html: docs/%.md
-	@echo "... $< -> $@"
-	@markdown $< \
-		> $@
-	# @markdown $< \
-	# 	| cat docs/layout/head.html - docs/layout/foot.html \
-	# 	> $@
-
-#----
 
 test:
 	$(MOCHA) --compilers coffee:coffee-script --require should $(TESTS)
