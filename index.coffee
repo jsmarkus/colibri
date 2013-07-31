@@ -24,9 +24,10 @@ createResource = (options)->
   hooks = options.hooks or {}
 
   methodOptions =
-    upsert : options.upsert
-    mtimeField : options.mtimeField
-    ctimeField : options.ctimeField
+    upsert      : options.upsert
+    mtimeField  : options.mtimeField
+    ctimeField  : options.ctimeField
+    plainOutput : options.plainOutput
 
   listPath = path
   itemPath = "#{path}/:_id"

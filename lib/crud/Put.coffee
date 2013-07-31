@@ -9,6 +9,7 @@ module.exports = class Put extends Method
     'load'
     'update'
     'save'
+    'serialize'
     'output'
   ]
 
@@ -61,10 +62,7 @@ module.exports = class Put extends Method
       else
         next null
 
-  output  : (req, res, next)->
+  serialize : (req, res, next)->
     rest = req.rest
-
-    unless rest.document
-      res.send 404
-    else
-      res.json rest.document.toObject()
+    rest.result = rest.document.toObject()
+    next null

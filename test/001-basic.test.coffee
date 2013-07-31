@@ -25,11 +25,11 @@ describe 'Basic REST API', ->
 			.post("#{utils.URL}/item")
 			.send(title: 'foo', body:'bar')
 			.end (res)->
-				itemId = res.body._id
+				itemId = res.body.result._id
 
 				res.status.should.equal 200
-				res.body.should.have.property 'title', 'foo'
-				res.body.should.have.property 'body', 'bar'
+				res.body.result.should.have.property 'title', 'foo'
+				res.body.result.should.have.property 'body', 'bar'
 				done()
 
 	it 'should update item', (done)->
@@ -38,8 +38,8 @@ describe 'Basic REST API', ->
 			.send(title: 'aaa')
 			.end (res)->
 				res.status.should.equal 200
-				res.body.should.have.property 'title', 'aaa'
-				res.body.should.have.property 'body', 'bar'
+				res.body.result.should.have.property 'title', 'aaa'
+				res.body.result.should.have.property 'body', 'bar'
 				done()
 
 
@@ -48,8 +48,8 @@ describe 'Basic REST API', ->
 			.get("#{utils.URL}/item/#{itemId}")
 			.end (res)->
 				res.status.should.equal 200
-				res.body.should.have.property 'title', 'aaa'
-				res.body.should.have.property 'body', 'bar'
+				res.body.result.should.have.property 'title', 'aaa'
+				res.body.result.should.have.property 'body', 'bar'
 				done()
 
 	it 'should get a list of items', (done)->
@@ -57,10 +57,10 @@ describe 'Basic REST API', ->
 			.get("#{utils.URL}/item")
 			.end (res)->
 				res.status.should.equal 200
-				res.body.should.be.an.instanceof Array
-				res.body.should.have.lengthOf 1
-				res.body[0].should.have.property 'title', 'aaa'
-				res.body[0].should.have.property 'body', 'bar'
+				res.body.result.should.be.an.instanceof Array
+				res.body.result.should.have.lengthOf 1
+				res.body.result[0].should.have.property 'title', 'aaa'
+				res.body.result[0].should.have.property 'body', 'bar'
 				done()
 
 	it 'should delete item', (done)->

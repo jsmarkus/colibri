@@ -8,6 +8,7 @@ module.exports = class Post extends Method
     'input'
     'create'
     'save'
+    'serialize'
     'output'
   ]
 
@@ -47,8 +48,7 @@ module.exports = class Post extends Method
       else
         next null
 
-  output  : (req, res, next)->
+  serialize : (req, res, next)->
     rest = req.rest
-
-    #% post.output USES document to be outputed
-    res.json rest.document
+    rest.result = rest.document.toObject()
+    next null
