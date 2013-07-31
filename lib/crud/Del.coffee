@@ -1,7 +1,8 @@
 Method = require '../Method'
 
 module.exports = class Del extends Method
-  defaultVerb: ->'del'
+  defaultVerb  : ->'del'
+  successCode  : -> 204
 
   defaultSteps: ->[
     'begin'
@@ -41,6 +42,3 @@ module.exports = class Del extends Method
         next err
       else
         next null
-
-  output : (req, res, next)->
-    res.json null, 204 #No content

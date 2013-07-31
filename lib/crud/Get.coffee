@@ -7,6 +7,8 @@ module.exports = class Get extends Method
     'begin'
     'input'
     'load'
+    'load'
+    'serialize'
     'output'
   ]
 
@@ -29,13 +31,12 @@ module.exports = class Get extends Method
       else
         #% get.load ADDS document found from DB
         rest.document = doc
-        next null
+        if doc
+          next null
+        else
+          res.send 404
 
-  output  : (req, res, next)->
+  serialize : (req, res, next)->
     rest = req.rest
-
-    #% get.output USES document to be outputed
-    unless rest.document
-      res.send 404
-    else
-      res.json rest.document.toObject()
+    rest.result = rest.document.toObject()
+    next null

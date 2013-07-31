@@ -8,6 +8,7 @@ module.exports = class List extends Method
     'input'
     'query'
     'load'
+    'serialize'
     'output'
   ]
 
@@ -29,13 +30,12 @@ module.exports = class List extends Method
       else
         #% list.load ADDS documents
         rest.documents = docs
-        next null
+        if docs
+          next null
+        else
+          res.send 404
 
-  output  : (req, res, next)->
+  serialize : (req, res, next)->
     rest = req.rest
-
-    #% list.output USES documents to be outputed
-    unless rest.documents
-      res.send 404
-    else
-      res.json (doc.toObject() for doc in rest.documents)
+    rest.result = (doc.toObject() for doc in rest.documents)
+    next null

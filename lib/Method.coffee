@@ -1,6 +1,7 @@
 module.exports = class Method
   constructor : (@model, path=null, @options={}, verb, steps)->
     @verb = if verb? then verb else @defaultVerb()
+    @plainOutput = !!@options.plainOutput
 
     unless @verb in ['all', 'get', 'post', 'put', 'del']
       throw new Error "Undefined verb '#{@verb}'"
@@ -11,9 +12,10 @@ module.exports = class Method
     @routes = {}
     @autoAdd()
 
-  defaultSteps  : ()-> []
-  defaultVerb : ()-> 'all'
-  defaultPath   : ()-> '/'
+  defaultSteps : -> []
+  defaultVerb  : -> 'all'
+  defaultPath  : -> '/'
+  successCode  : -> 200
 
 
   routesByStep : (step)->
@@ -46,7 +48,17 @@ module.exports = class Method
 
   begin : (req, res, next)=>
     req.rest = {}
+    req.rest.meta = {}
 
     req.rest.model = @model
     req.rest.currentTime = new Date
     next null
+
+  output : (req, res, next)=>
+    if @plainOutput
+      response = req.rest.result
+    else
+      response = Object.create req.rest.meta
+      response.result = req.rest.result
+    res.json response, @successCode()
+
