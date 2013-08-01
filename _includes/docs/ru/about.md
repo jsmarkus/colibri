@@ -1,5 +1,7 @@
 ## Описание
 
+![Colibri, Express, Mongoose model and MongoDB](i/drawing.png)
+
 Colibri - это фреймворк, который упрощает задачу построения REST-сервисов для управления данными в MongoDB.
 
 Допустим, у нас в mongodb есть коллекция статей `Articles`
