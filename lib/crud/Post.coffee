@@ -19,7 +19,7 @@ module.exports = class Post extends Method
     rest.fieldValues = req.body
     next null
 
-  create   : (req, res, next)=>
+  create   : (req, res, next)->
     rest = req.rest
 
     options = @options

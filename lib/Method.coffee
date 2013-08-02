@@ -35,7 +35,7 @@ module.exports = class Method
   add : (step, middleware)->
     unless @routes[step]
       @routes[step] = []
-    @routes[step].push middleware
+    @routes[step].push middleware.bind @
 
   getVerb : ->
     return @verb
@@ -61,4 +61,3 @@ module.exports = class Method
       response = req.rest.meta
       response.result = req.rest.result
     res.json response, @successCode()
-
