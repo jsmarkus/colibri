@@ -18,6 +18,10 @@
       return 'del';
     };
 
+    Del.prototype.successCode = function() {
+      return 204;
+    };
+
     Del.prototype.defaultSteps = function() {
       return ['begin', 'input', 'load', 'remove', 'output'];
     };
@@ -53,10 +57,6 @@
           return next(null);
         }
       });
-    };
-
-    Del.prototype.output = function(req, res, next) {
-      return res.json(null, 204);
     };
 
     return Del;

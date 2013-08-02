@@ -33,7 +33,8 @@
     methodOptions = {
       upsert: options.upsert,
       mtimeField: options.mtimeField,
-      ctimeField: options.ctimeField
+      ctimeField: options.ctimeField,
+      plainOutput: options.plainOutput
     };
     listPath = path;
     itemPath = "" + path + "/:_id";

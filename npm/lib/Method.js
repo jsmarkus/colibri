@@ -13,9 +13,12 @@
         path = null;
       }
       this.options = options != null ? options : {};
+      this.output = __bind(this.output, this);
+
       this.begin = __bind(this.begin, this);
 
       this.verb = verb != null ? verb : this.defaultVerb();
+      this.plainOutput = !!this.options.plainOutput;
       if ((_ref = this.verb) !== 'all' && _ref !== 'get' && _ref !== 'post' && _ref !== 'put' && _ref !== 'del') {
         throw new Error("Undefined verb '" + this.verb + "'");
       }
@@ -35,6 +38,10 @@
 
     Method.prototype.defaultPath = function() {
       return '/';
+    };
+
+    Method.prototype.successCode = function() {
+      return 200;
     };
 
     Method.prototype.routesByStep = function(step) {
@@ -74,7 +81,7 @@
       if (!this.routes[step]) {
         this.routes[step] = [];
       }
-      return this.routes[step].push(middleware);
+      return this.routes[step].push(middleware.bind(this));
     };
 
     Method.prototype.getVerb = function() {
@@ -101,9 +108,21 @@
 
     Method.prototype.begin = function(req, res, next) {
       req.rest = {};
+      req.rest.meta = {};
       req.rest.model = this.model;
       req.rest.currentTime = new Date;
       return next(null);
+    };
+
+    Method.prototype.output = function(req, res, next) {
+      var response;
+      if (this.plainOutput) {
+        response = req.rest.result;
+      } else {
+        response = req.rest.meta;
+        response.result = req.rest.result;
+      }
+      return res.json(response, this.successCode());
     };
 
     return Method;
