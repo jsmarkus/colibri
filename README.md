@@ -30,7 +30,8 @@ TodoModel = mongoose.model 'todo', TodoSchema
 #And now - the magic!
 
 colibri.createResource app,
-  model : TodoModel
+  model       : TodoModel
+  plainOutput : yes
 
 app.listen 3000
 
