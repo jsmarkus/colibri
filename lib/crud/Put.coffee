@@ -19,7 +19,7 @@ module.exports = class Put extends Method
     rest.fieldValues = req.body
     next null
 
-  load : (req, res, next)=>
+  load : (req, res, next)->
     rest = req.rest
     _id  = rest._id
 
@@ -41,7 +41,7 @@ module.exports = class Put extends Method
         rest.document = doc
         next null
 
-  update : (req, res, next)=>
+  update : (req, res, next)->
     rest = req.rest
     self = rest.method
 
