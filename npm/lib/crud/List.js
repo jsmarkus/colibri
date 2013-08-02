@@ -19,7 +19,7 @@
     };
 
     List.prototype.defaultSteps = function() {
-      return ['begin', 'input', 'query', 'load', 'output'];
+      return ['begin', 'input', 'query', 'load', 'serialize', 'output'];
     };
 
     List.prototype.input = function(req, res, next) {
@@ -41,28 +41,29 @@
           return next(err);
         } else {
           rest.documents = docs;
-          return next(null);
+          if (docs) {
+            return next(null);
+          } else {
+            return res.send(404);
+          }
         }
       });
     };
 
-    List.prototype.output = function(req, res, next) {
+    List.prototype.serialize = function(req, res, next) {
       var doc, rest;
       rest = req.rest;
-      if (!rest.documents) {
-        return res.send(404);
-      } else {
-        return res.json((function() {
-          var _i, _len, _ref, _results;
-          _ref = rest.documents;
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            doc = _ref[_i];
-            _results.push(doc.toObject());
-          }
-          return _results;
-        })());
-      }
+      rest.result = (function() {
+        var _i, _len, _ref, _results;
+        _ref = rest.documents;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          doc = _ref[_i];
+          _results.push(doc.toObject());
+        }
+        return _results;
+      })();
+      return next(null);
     };
 
     return List;

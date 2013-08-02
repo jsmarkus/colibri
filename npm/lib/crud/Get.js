@@ -19,7 +19,7 @@
     };
 
     Get.prototype.defaultSteps = function() {
-      return ['begin', 'input', 'load', 'output'];
+      return ['begin', 'input', 'load', 'load', 'serialize', 'output'];
     };
 
     Get.prototype.input = function(req, res, next) {
@@ -38,19 +38,20 @@
           return next(err);
         } else {
           rest.document = doc;
-          return next(null);
+          if (doc) {
+            return next(null);
+          } else {
+            return res.send(404);
+          }
         }
       });
     };
 
-    Get.prototype.output = function(req, res, next) {
+    Get.prototype.serialize = function(req, res, next) {
       var rest;
       rest = req.rest;
-      if (!rest.document) {
-        return res.send(404);
-      } else {
-        return res.json(rest.document.toObject());
-      }
+      rest.result = rest.document.toObject();
+      return next(null);
     };
 
     return Get;
