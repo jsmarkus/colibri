@@ -16,9 +16,9 @@ app = express.createServer()
 app.use express.bodyParser()
 app.use express.static "#{__dirname}/static"
 
-mongoose.connect 'mongodb://localhost/colibriTodo'
-
 #mongoose-related stuff: Schema and Model
+
+mongoose.connect 'mongodb://localhost/colibriTodo'
 
 TodoSchema = new mongoose.Schema
   title : String
@@ -29,9 +29,17 @@ TodoModel = mongoose.model 'todo', TodoSchema
 
 #And now - the magic!
 
-colibri.createResource app,
+# - create REST backend
+
+resource = colibri.createResource
   model       : TodoModel
   plainOutput : yes
+
+# - bind our rest backend to app
+
+resource.express app
+
+#Listen
 
 app.listen 3000
 
