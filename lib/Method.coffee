@@ -1,3 +1,5 @@
+utils = require './utils'
+
 module.exports = class Method
   constructor : (@model, path=null, @options={}, verb, steps)->
     @verb = if verb? then verb else @defaultVerb()
@@ -35,7 +37,7 @@ module.exports = class Method
   add : (step, middleware)->
     unless @routes[step]
       @routes[step] = []
-    @routes[step].push middleware.bind @
+    @routes[step].push mw.bind @ for mw in utils.flatten [middleware]
 
   getVerb : ->
     return @verb
