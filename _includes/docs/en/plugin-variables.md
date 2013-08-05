@@ -1,90 +1,120 @@
-`ALL_METHODS.begin` adds `req.rest.meta`:
-    origin: 
+`ALL_METHODS.begin` adds **req.rest.meta**:
 
-`ALL_METHODS.begin` adds `req.rest.model`:
-    origin: 
+* origin: -
 
-`ALL_METHODS.begin` adds `req.rest.currentTime`:
-    origin: 
+`ALL_METHODS.begin` adds **req.rest.model**:
 
-`ALL_METHODS.output` uses `req.rest.result`:
-    purpose: to output main result (document or documents list)
+* origin: -
 
-`ALL_METHODS.output` uses `req.rest.meta`:
-    purpose: to output meta-data (plugin may need to output some variables)
+`ALL_METHODS.begin` adds **req.rest.currentTime**:
 
-`get.input` adds `req.rest._id`:
-    origin: `req.param('_id')`
+* origin: -
 
-`get.load` uses `req.rest._id`:
-    purpose: to find document
+`ALL_METHODS.output` uses **req.rest.result**:
 
-`get.load` adds `req.rest.document`:
-    origin: result of `req.rest.model.findById(req.rest._id)`
+* purpose: to output main result (document or documents list)
 
-`get.serialize` adds `req.rest.result`:
-    origin: `req.res.document.toObject()`
+`ALL_METHODS.output` uses **req.rest.meta**:
 
-`del.input` adds `req.rest._id`:
-    origin: `req.param('_id')`
+* purpose: to output meta-data (plugin may need to output some variables)
 
-`del.load` uses `req.rest._id`:
-    purpose: to find document to be deleted
+`get.input` adds **req.rest._id**:
 
-`del.load` adds `req.rest.document`:
-    origin: result of `req.rest.model.findById(req.rest._id)`
+* origin: `req.param('_id')`
 
-`del.remove` uses `req.rest.document`:
-    purpose: to remove()
+`get.load` uses **req.rest._id**:
 
-`list.query` adds `req.rest.query`:
-    origin: `rest.model.find()`
+* purpose: to find document
 
-`list.load` uses `req.rest.query`:
-    purpose: to find documents list
+`get.load` adds **req.rest.document**:
 
-`list.load` adds `req.rest.documents`:
-    origin: result of `req.rest.query.exec()`
+* origin: result of `req.rest.model.findById(req.rest._id)`
 
-`list.serialize` adds `req.rest.result`:
-    origin: array of `req.res.documents.toObject()`
+`get.serialize` adds **req.rest.result**:
 
-`post.input` adds `req.rest.fieldValues`:
-    origin: `req.body`
+* origin: `req.res.document.toObject()`
 
-`post.create` adds `req.rest.document`:
-    origin: `new req.rest.model` with fields populated from `req.rest.fieldValues`
+`del.input` adds **req.rest._id**:
 
-`post.save` uses `req.rest.document`:
-    purpose: to save()
+* origin: `req.param('_id')`
 
-`post.serialize` adds `req.rest.result`:
-    origin: `req.res.document.toObject()`
+`del.load` uses **req.rest._id**:
 
-`put.input` adds `req.rest._id`:
-    origin: `req.param('_id')`
+* purpose: to find document to be deleted
 
-`put.input` adds `req.rest.fieldValues`:
-    origin: `req.body`
+`del.load` adds **req.rest.document**:
 
-`put.load` uses `req.rest._id`:
-    purpose: to find document to be updated
+* origin: result of `req.rest.model.findById(req.rest._id)`
 
-`put.load` uses `req.rest.currentTime`:
-    purpose: to update field passed in `options.ctimeField`
+`del.remove` uses **req.rest.document**:
 
-`put.load` adds `req.rest.document`:
-    origin: result of `findById` or newly created (if `upsert` option is on)
+* purpose: to remove()
 
-`put.update` uses `req.rest.fieldValues`:
-    purpose: to populate `req.res.document`
+`list.query` adds **req.rest.query**:
 
-`put.update` uses `req.rest.document`:
-    purpose: to populate from `req.res.document`
+* origin: `rest.model.find()`
 
-`put.save` uses `req.rest.document`:
-    purpose: to save()
+`list.load` uses **req.rest.query**:
 
-`put.serialize` adds `req.rest.result`:
-    origin: `req.res.document.toObject()`
+* purpose: to find documents list
+
+`list.load` adds **req.rest.documents**:
+
+* origin: result of `req.rest.query.exec()`
+
+`list.serialize` adds **req.rest.result**:
+
+* origin: array of `req.res.documents.toObject()`
+
+`post.input` adds **req.rest.fieldValues**:
+
+* origin: `req.body`
+
+`post.create` adds **req.rest.document**:
+
+* origin: `new req.rest.model` with fields populated from `req.rest.fieldValues`
+
+`post.save` uses **req.rest.document**:
+
+* purpose: to save()
+
+`post.serialize` adds **req.rest.result**:
+
+* origin: `req.res.document.toObject()`
+
+`put.input` adds **req.rest._id**:
+
+* origin: `req.param('_id')`
+
+`put.input` adds **req.rest.fieldValues**:
+
+* origin: `req.body`
+
+`put.load` uses **req.rest._id**:
+
+* purpose: to find document to be updated
+
+`put.load` uses **req.rest.currentTime**:
+
+* purpose: to update field passed in `options.ctimeField`
+
+`put.load` adds **req.rest.document**:
+
+* origin: result of `findById` or newly created (if `upsert` option is on)
+
+`put.update` uses **req.rest.fieldValues**:
+
+* purpose: to populate `req.res.document`
+
+`put.update` uses **req.rest.document**:
+
+* purpose: to populate from `req.res.document`
+
+`put.save` uses **req.rest.document**:
+
+* purpose: to save()
+
+`put.serialize` adds **req.rest.result**:
+
+* origin: `req.res.document.toObject()`
 
