@@ -17,7 +17,7 @@ module.exports = class List extends Method
 
   query : (req, res, next)->
     rest = req.rest
-    #% list.query ADDS query to find documents list
+    #% list.query ADDS query `rest.model.find()`
     rest.query = rest.model.find()
     next null
 
@@ -28,7 +28,7 @@ module.exports = class List extends Method
       if err
         next err
       else
-        #% list.load ADDS documents
+        #% list.load ADDS documents result of `req.rest.query.exec()`
         rest.documents = docs
         if docs
           next null
@@ -37,5 +37,6 @@ module.exports = class List extends Method
 
   serialize : (req, res, next)->
     rest = req.rest
+    #% list.serialize ADDS result array of `req.res.documents.toObject()`
     rest.result = (doc.toObject() for doc in rest.documents)
     next null

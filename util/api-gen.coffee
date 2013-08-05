@@ -3,6 +3,7 @@
 fs = require 'fs'
 
 files = [
+  '../Method.coffee'
   'Get.coffee'
   'Del.coffee'
   'List.coffee'
@@ -37,7 +38,15 @@ parseLine = (line, ln)->
   return false
 
 formatRow = (r)->
-  "`#{r.httpMethod}.#{r.step}` #{r.operation} `req.rest.#{r.variable}` #{r.comments}"
+  commentHeader = 'purpose'
+  if r.operation is 'ADDS'
+    commentHeader = 'origin'
+
+  """
+  `#{r.httpMethod}.#{r.step}` #{r.operation.toLowerCase()} `req.rest.#{r.variable}`:
+      #{commentHeader}: #{r.comments}
+
+  """
 
 
 do main

@@ -15,7 +15,7 @@ module.exports = class Del extends Method
   input : (req, res, next)->
     rest = req.rest
 
-    #% del.input ADDS _id parsed from request
+    #% del.input ADDS _id `req.param('_id')`
     rest._id = req.param '_id'
     next null
 
@@ -29,14 +29,14 @@ module.exports = class Del extends Method
       if err
         next err
       else
-        #% del.load ADDS document to be removed
+        #% del.load ADDS document result of `req.rest.model.findById(req.rest._id)`
         rest.document = doc
         next null
 
   remove : (req, res, next)->
     rest = req.rest
 
-    #% del.remove USES document to call remove() method against
+    #% del.remove USES document to remove()
     rest.document.remove (err)->
       if err
         next err

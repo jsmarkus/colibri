@@ -50,13 +50,20 @@ module.exports = class Method
 
   begin : (req, res, next)=>
     req.rest = {}
+
+    #% ALL_METHODS.begin ADDS meta
     req.rest.meta = {}
 
+    #% ALL_METHODS.begin ADDS model
     req.rest.model = @model
+
+    #% ALL_METHODS.begin ADDS currentTime
     req.rest.currentTime = new Date
     next null
 
   output : (req, res, next)=>
+    #% ALL_METHODS.output USES result to output main result (document or documents list)
+    #% ALL_METHODS.output USES meta to output meta-data (plugin may need to output some variables)
     if @plainOutput
       response = req.rest.result
     else
