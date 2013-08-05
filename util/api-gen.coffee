@@ -43,8 +43,9 @@ formatRow = (r)->
     commentHeader = 'origin'
 
   """
-  `#{r.httpMethod}.#{r.step}` #{r.operation.toLowerCase()} `req.rest.#{r.variable}`:
-      #{commentHeader}: #{r.comments}
+  `#{r.httpMethod}.#{r.step}` #{r.operation.toLowerCase()} **req.rest.#{r.variable}**:
+
+  * #{commentHeader}: #{r.comments or '-'}
 
   """
 
