@@ -58,9 +58,8 @@
     };
 
     Put.prototype.update = function(req, res, next) {
-      var field, rest, self, value, _ref;
+      var field, rest, value, _ref;
       rest = req.rest;
-      self = rest.method;
       _ref = rest.fieldValues;
       for (field in _ref) {
         if (!__hasProp.call(_ref, field)) continue;
