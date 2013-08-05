@@ -15,7 +15,7 @@ module.exports = class Post extends Method
   input   : (req, res, next)->
     rest = req.rest
 
-    #% post.input ADDS fieldValues parsed from request body
+    #% post.input ADDS fieldValues `req.body`
     rest.fieldValues = req.body
     next null
 
@@ -24,7 +24,7 @@ module.exports = class Post extends Method
 
     options = @options
 
-    #% post.create ADDS document with fields populated from fieldValues
+    #% post.create ADDS document `new req.rest.model` with fields populated from `req.rest.fieldValues`
     rest.document = new rest.model
 
     for own field, value of rest.fieldValues
@@ -41,7 +41,7 @@ module.exports = class Post extends Method
   save : (req, res, next)->
     rest = req.rest
 
-    #% post.save USES document to call save() against
+    #% post.save USES document to save()
     rest.document.save (err)->
       if err
         next err
@@ -50,5 +50,6 @@ module.exports = class Post extends Method
 
   serialize : (req, res, next)->
     rest = req.rest
+    #% post.serialize ADDS result `req.res.document.toObject()`
     rest.result = rest.document.toObject()
     next null

@@ -15,7 +15,7 @@ module.exports = class Get extends Method
   input   : (req, res, next)->
     rest =req.rest
 
-    #% get.input ADDS _id parsed from request
+    #% get.input ADDS _id `req.param('_id')`
     rest._id = req.param '_id'
     next null
 
@@ -29,7 +29,7 @@ module.exports = class Get extends Method
       if err
         next err
       else
-        #% get.load ADDS document found from DB
+        #% get.load ADDS document result of `req.rest.model.findById(req.rest._id)`
         rest.document = doc
         if doc
           next null
@@ -38,5 +38,6 @@ module.exports = class Get extends Method
 
   serialize : (req, res, next)->
     rest = req.rest
+    #% get.serialize ADDS result `req.res.document.toObject()`
     rest.result = rest.document.toObject()
     next null
