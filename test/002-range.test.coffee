@@ -17,22 +17,23 @@ resource.express utils.app
 
 
 
-describe 'Basic REST API', ->
+describe 'Colibri resource with range and count plugins added', ->
 
 	before (done)->
-		docs = [
-			{ title : 'one',   order : '1'  }
-			{ title : 'two',   order : '2'  }
-			{ title : 'three', order : '3'  }
-			{ title : 'four',  order : '4'  }
-			{ title : 'five',  order : '5'  }
-			{ title : 'six',   order : '6'  }
-			{ title : 'seven', order : '7'  }
-			{ title : 'eight', order : '8'  }
-			{ title : 'nine',  order : '9'  }
-			{ title : 'ten',   order : '10' }
-		]
-		utils.ItemModel.create docs, done
+		utils.ItemModel.remove {}, ()->
+			docs = [
+				{ title : 'one',   order : '1'  }
+				{ title : 'two',   order : '2'  }
+				{ title : 'three', order : '3'  }
+				{ title : 'four',  order : '4'  }
+				{ title : 'five',  order : '5'  }
+				{ title : 'six',   order : '6'  }
+				{ title : 'seven', order : '7'  }
+				{ title : 'eight', order : '8'  }
+				{ title : 'nine',  order : '9'  }
+				{ title : 'ten',   order : '10' }
+			]
+			utils.ItemModel.create docs, done
 
 
 	it 'should get a list of items', (done)->
