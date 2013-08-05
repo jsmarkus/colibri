@@ -1,13 +1,20 @@
 ## Описание
 
-![Colibri, Express, Mongoose model and MongoDB](i/drawing.png)
+Colibri - это фреймворк для Node.js, который упрощает задачу построения REST-сервисов для управления данными в MongoDB.
 
-Colibri - это фреймворк, который упрощает задачу построения REST-сервисов для управления данными в MongoDB.
+<div markdown="1" class="well">
+ * язык: **JavaScript**, **CoffeeScript**
+ * установка: ```npm install colibri```
+ * репозиторий: [github.com/jsmarkus/colibri](https://github.com/jsmarkus/colibri)
+ * требования: [Express](http://expressjs.com/), [Mongoose](http://mongoosejs.com/), [MongoDB](http://www.mongodb.org/)
+</div>
+
+![Colibri, Express, Mongoose model and MongoDB](i/drawing.png)
 
 Допустим, у нас в mongodb есть коллекция статей `Articles`
 и мы хотим управлять ей через REST-ресурс.
 
-Также у нас есть веб-сервер на Express, в который мы хотим добавить наш ресурс. Допустим, это веб-сервер:
+Также у нас есть веб-сервер на Express, в который мы хотим добавить наш ресурс. Допустим, это - веб-сервер:
 
     express = require 'express'
     app = express.createServer()
