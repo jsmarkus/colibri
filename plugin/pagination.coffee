@@ -17,6 +17,7 @@ module.exports = (options)->
 
       page = parseInt(req.param PAGE_PARAM) or 1
       page = 1 if page <= 0
+      pagination.currentPage = page
 
       skip = ITEMS_PER_PAGE * (page - 1)
       limit = ITEMS_PER_PAGE
@@ -34,6 +35,11 @@ module.exports = (options)->
         pagination.totalItems = count
         pagination.totalPages = Math.ceil(count / ITEMS_PER_PAGE)
         next null
+
+    serialize: (req, res, next)->
+      {meta, pagination} = req.rest
+      meta.pagination = pagination
+      next null
 
 
   return {list}

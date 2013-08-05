@@ -41,6 +41,10 @@ describe 'Resource with pagination plugin added', ->
 				res.body.result.should.have.lengthOf 4
 				res.body.result[0].title.should.equal 'five'
 				res.body.result[3].title.should.equal 'eight'
+
+				res.body.pagination.totalItems.should.equal 10
+				res.body.pagination.totalPages.should.equal 3
+				res.body.pagination.currentPage.should.equal 2
 				done()
 
 	it 'should get a list of items on page1', (done)->
@@ -50,6 +54,10 @@ describe 'Resource with pagination plugin added', ->
 				res.body.result.should.have.lengthOf 4
 				res.body.result[0].title.should.equal 'one'
 				res.body.result[3].title.should.equal 'four'
+
+				res.body.pagination.totalItems.should.equal 10
+				res.body.pagination.totalPages.should.equal 3
+				res.body.pagination.currentPage.should.equal 1
 				done()
 
 	it 'should get a list of items on page3', (done)->
@@ -59,4 +67,8 @@ describe 'Resource with pagination plugin added', ->
 				res.body.result.should.have.lengthOf 2
 				res.body.result[0].title.should.equal 'nine'
 				res.body.result[1].title.should.equal 'ten'
+
+				res.body.pagination.totalItems.should.equal 10
+				res.body.pagination.totalPages.should.equal 3
+				res.body.pagination.currentPage.should.equal 3
 				done()
