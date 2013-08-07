@@ -7,7 +7,6 @@ module.exports = class Get extends Method
     'begin'
     'input'
     'load'
-    'load'
     'serialize'
     'output'
   ]

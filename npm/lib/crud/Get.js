@@ -19,7 +19,7 @@
     };
 
     Get.prototype.defaultSteps = function() {
-      return ['begin', 'input', 'load', 'load', 'serialize', 'output'];
+      return ['begin', 'input', 'load', 'serialize', 'output'];
     };
 
     Get.prototype.input = function(req, res, next) {
