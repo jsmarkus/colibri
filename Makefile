@@ -10,6 +10,9 @@ DST_EXAMPLE := $(NPM_DIR)/example
 SRC_PACKAGE := package.json
 DST_PACKAGE := $(NPM_DIR)/package.json
 
+SRC_README := README.md
+DST_README := $(NPM_DIR)/README.md
+
 #----
 
 TESTS := $(wildcard test/*.test.coffee)
@@ -18,7 +21,7 @@ COFFEE := node_modules/mocha/bin/mocha
 
 #----
 
-package: $(DST_JS) $(DST_PACKAGE) $(DST_EXAMPLE)
+package: $(DST_JS) $(DST_PACKAGE) $(DST_EXAMPLE) $(DST_README)
 
 clean:
 	rm -rfv $(NPM_DIR)
@@ -27,6 +30,9 @@ $(DST_EXAMPLE): $(SRC_EXAMPLE)
 	cp -r $< $@
 
 $(DST_PACKAGE): $(SRC_PACKAGE)
+	cp $< $@
+
+$(DST_README): $(SRC_README)
 	cp $< $@
 
 $(NPM_DIR)/%.js : %.coffee

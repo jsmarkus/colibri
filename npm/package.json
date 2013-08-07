@@ -2,6 +2,22 @@
   "name": "colibri",
   "version": "0.0.4",
   "dependencies": {},
+  "description": "Colibri makes it easy to create REST resources serving MongoDB collections",
+  "author":"jsmarkus <me@jsman.ru>",
+  "license":"MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsmarkus/colibri"
+  },
+  "keywords": [
+    "mongoose",
+    "mongo",
+    "mongodb",
+    "rest",
+    "express",
+    "crud",
+    "scaffold"
+  ],
   "devDependencies": {
     "express": "2.5.9",
     "mocha": "*",
