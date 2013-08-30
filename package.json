@@ -1,6 +1,6 @@
 {
   "name": "colibri",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {},
   "description": "Colibri makes it easy to create REST resources serving MongoDB collections",
   "author":"jsmarkus <me@jsman.ru>",
