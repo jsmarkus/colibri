@@ -24,6 +24,6 @@
     "should": "*",
     "superagent": "*",
     "coffee-script": "*",
-    "mongoose": "~3.6.15"
+    "mongoose": "~5.7.6"
   }
 }
